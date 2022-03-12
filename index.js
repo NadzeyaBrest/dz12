@@ -1,104 +1,99 @@
-// 1) Написать функцию, которая выводит все чётные числа от 0 до 100.
-getNumbers = (min, max) => {
-  let numbers = [];
-  for (let i = min; i <= max; i++) {
-    if (i % 2 !== 0) continue;
-    numbers.push(i);
+// // 1) Задачка "угадай число"!
+let guessNumber = () => {
+  let number = Math.round(1 - 0.5 + Math.random() * (100 - 1 + 1));
+  let userNumber = +prompt("Введите число от 1 до 100 включительн", "");
+  if (number === userNumber) {
+    alert("Поздравляю, попал");
+  } else {
+    alert(`Ты ошибся, было загадано число ${number} `);
   }
-  return numbers;
 };
-console.log(getNumbers(0, 100));
-// 2) Написать функцию, которая выводит все числа кратные 4-ём от 0 до 100.
-getNumber4 = (min4, max4) => {
-  let numbers4 = [];
-  for (let j = min4; j <= max4; j++) {
-    if (j % 4 !== 0) continue;
-    numbers4.push(j);
+// guessNumber();
+
+// // 2) Создать 20 случайных целых чисел и если они чётные, тогда записывать их в массив, который является полем объекта myObj.
+let myObj = {
+  arr: [],
+};
+
+for (let i = 0; i < 20; i++) {
+  let number = (Math.random() * 100).toFixed(0);
+  if (number % 2 === 0) {
+    myObj.arr.push(number);
   }
-  return numbers4;
-};
-console.log(getNumber4(0, 100));
+}
+console.log(myObj.arr);
+// // 3) Проверить массив на повторения и вывести в консоль повторяющиеся элементы!
 
-// 3) Написать функцию, которая реверсирует порядок элементов массива, не используя вообще никаких методов массива.
-reverse = (arr) => {
-  newarr = [];
-  for (let item = 0; item < arr.length; item++) {
-    newarr[arr.length - item - 1] = arr[item];
-  }
-  return newarr;
-};
-let a = [1, 2, 3, 4, 5];
-console.log(reverse(a));
-// 4) Написать функцию, которая принимает пустой объект, в своём теле она заполняет объект информацией и возвращает полученный объект. Функция должна быть чистой!
-let EmptyObj = (obj) => {
-  (obj.name = "Катя"), (obj.age = 13);
-};
-// 5) Найти сумму первых 10 цифр числа - 3710728753390210279879799822083759024651013574025046376937677490009712648124896970078050417018260538743249861995247410594742333043
-let number1 = 3710728753390210279879799822083759024651013574025046376937677490009712648124896970078050417018260538743249861995247410594742333043;
-let number2 = String(number1);
-number2 = number2.substr(0, 11);
-let number3 = +number2 * 1e9;
-let number4 = String(number3).split("");
-console.log(number4);
-let number5 = number4.map((item) => +item);
-let result = number5.reduce((sum, current) => sum + current);
-console.log(result);
-
-// 6) Найти количество цифр 2, используемых в массиве: [235432, 56564, 223521, 10, 0 ,0 ,3413, 1232, 987122, 243, 6,5,4, 213,6,78,1,2,3,5].
-const num = [
-  235432, 56564, 223521, 10, 0, 0, 3413, 1232, 987122, 243, 6, 5, 4, 213, 6, 78,
-  1, 2, 3, 5,
-];
-
-function colonOdd(num) {
-  let str = num.toString();
-  let result = 0;
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] == 2) {
-      result++;
+let a = [1, 2, 3, 4, 4, 4];
+let repeated = (arr) => {
+  let repeat = [];
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = i + 1; j < arr.length; j++) {
+      if (arr[i] === arr[j] && !repeat.includes(arr[i])) {
+        repeat.push(arr[i]);
+      }
     }
   }
-  return result;
-}
-console.log(colonOdd(num));
-// Поменять чётные и нечетные буквы в слове -  "Разработчик"  местами.
-let b = "Разработчик";
-function changePlace(word) {
-  let result1 = [];
-  for (let i = 0; i < word.length; i++) {
-    if (i % 2 === 0) {
-      result1.push(i - 1);
-    } else {
-      result1.push(i + 1);
-    }
-  }
+  return repeat;
+};
+console.log(repeated(a));
 
-  return result1.join("");
-}
-console.log(changePlace(b));
-// 1) Посчитать количество букв - "з", использущихся в массиве.
+// // Дан текст. Вывести слова текста с количеством повторений в данном тексте.
+let test =
+  "Пошла Катя утром за грибами. Она взяла сестру Машу. Маша была мала. На пути была речка. Катя взяла сестру на руки и перешла речку. Катя любит свою сестру.";
 
-// 2) Вычислить факториал числа 20922789888000.
-let o = 10;
-function factoriaa(p) {
-  return p != 1 ? p * factoriaa(p - 1) : 1;
-}
-alert(factoriaa(o));
-// 3) Написать фунцию, которая решает квадратное уравнение.
-// ПРИМЕЧАНИЕ: не пренебрегайте частью уравнения после равно.
-// 1) Вывести на экран все элементы массива, являющиеся простыми числами.
-let m = [1, 2, 3, 4, 5, 6, 7, 8, 11, 12, 23, 45, 67, 88];
+let findeelement = (str) => {
+  let ar = str.split(" ");
+  let obj = {};
+  ar.forEach((item) => (item in obj ? (obj[item] += 1) : (obj[item] = 1)));
+  const entries = Object.entries(obj).sort((a, b) => b[1] - a[1]);
+  console.log(entries);
+};
 
-function getSimple(arr) {
-  let sortArr = arr.sort((a, b) => a - b);
-  let arrSimple = [];
+findeelement(test);
 
-  for (let r = sortArr[0]; r <= sortArr[sortArr.length - 1]; r++) {
-    for (let w = sortArr[0]; w < sortArr[sortArr.length - 1]; w++) {
-      if (r % w == 0);
-      arrSimple.push[r];
-    }
-  }
-  return arrSimple;
-}
-console.log(getSimple(m));
+// // Если слово в тексте используется только 1 раз - выводить в консоль "ваше слово" - не повторяется в тексте.
+// // 1) Написать функцию, которая вычисляет квадратный корень числа, полученного методом Math.random().
+let getSquare = () => {
+  // return Math.random() ** (1 / 2);
+  return Math.sqrt(Math.random());
+};
+console.log(getSquare());
+
+// // 2) Написать функцию, которая генерирует дату рождения пользователя. Пример (12 октября, 2002 год). Месяц тоже должен выбираться случайно.
+let birthday = () => {
+  let a = Math.round(1 - 0.5 + Math.random() * (31 - 1 + 1));
+  let mounth = [
+    "январь",
+    "февраль",
+    "март",
+    "апрель",
+    "май",
+    "июнь",
+    "июль",
+    "август",
+    "сентябрь",
+    "октябрь",
+    "ноябрь",
+    "декабрь",
+  ];
+  let b = mounth[Math.round(0 - 0.5 + Math.random() * (12 - 0 + 1))];
+  let c = Math.round(1920 - 0.5 + Math.random() * (2021 - 1920 + 1));
+  let bes = `${a} ${b} ${c}`;
+  return console.log(bes);
+};
+birthday();
+// // 3) Придумать тест. Захардкодить вопросы. Сделать так, чтобы при каждом запуске программы, вопросы в тесте перемешивались
+
+let quiz = () => {
+  let questions = [
+    "Какой самый короткий день года",
+    "Сколько областей в Беларуси",
+    "Сколько цветов у светофора",
+  ];
+  let index = Math.round(
+    0 - 0.5 + Math.random() * (questions.length - 1 - 0 + 1)
+  );
+  return console.log(questions[index]);
+};
+quiz();
